@@ -65,6 +65,17 @@
         android:layout_marginTop="85dp"
         android:src="@drawable/wow" />
 
+    <Button
+        android:id="@+id/btngeneratepdf"
+        android:layout_below="@+id/scanME"
+        android:layout_centerHorizontal="true"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btncreateuser"
+        android:text="Generate PDF"
+        android:textColor="#fff"
+        android:padding="20dp" />
+
 
 <!--    <RelativeLayout-->
 <!--        android:layout_width="wrap_content"-->

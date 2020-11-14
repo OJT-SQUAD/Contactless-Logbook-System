@@ -7,8 +7,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,8 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
     private DatabaseReference userRef;
     private String QR_text_ID;
 
+    private Button generatepdf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +45,23 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         userQrCode = findViewById(R.id.userQrCode);
+        generatepdf = findViewById(R.id.btngeneratepdf);
 
         Intent intent = getIntent();
         getUsername = intent.getStringExtra("getUsername");
 
         UserGenerateQR_code();
 
-
+        genpdf();
     }
 
+    private void genpdf() {
+//        PdfDocument pdfDocument = new PdfDocument();
+//        Paint paint = new Paint();
+//
+//        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1200,2010,1).create();
+//
+    }
 
 
     public void UserGenerateQR_code(){
@@ -74,7 +87,6 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
+
 }

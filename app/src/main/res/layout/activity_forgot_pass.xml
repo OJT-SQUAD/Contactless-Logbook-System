@@ -67,6 +67,7 @@
             android:drawablePadding="20dp"
             android:hint="email address"
             android:paddingLeft="20dp"
+            android:inputType="textEmailAddress"
             android:textSize="15dp" />
 
         <Button
