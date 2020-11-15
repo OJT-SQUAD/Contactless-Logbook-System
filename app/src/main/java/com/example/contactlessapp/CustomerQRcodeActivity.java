@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -56,11 +57,17 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
     }
 
     private void genpdf() {
-//        PdfDocument pdfDocument = new PdfDocument();
-//        Paint paint = new Paint();
-//
-//        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1200,2010,1).create();
-//
+        generatepdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PdfDocument pdfDocument = new PdfDocument();
+                Paint paint = new Paint();
+
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1200,2010,1).create();
+                PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+                Canvas canvas = page.getCanvas();
+            }
+        });
     }
 
 
