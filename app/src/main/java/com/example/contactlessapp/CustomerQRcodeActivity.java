@@ -2,15 +2,19 @@ package com.example.contactlessapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
@@ -36,6 +44,7 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference userRef;
     private String QR_text_ID;
+    private Bitmap bitmap, scaledbitmap;
 
     private Button generatepdf;
 
@@ -53,7 +62,9 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
 
         UserGenerateQR_code();
 
-        genpdf();
+        ActivityCompat.requestPermissions(CustomerQRcodeActivity.this,new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+            genpdf();
     }
 
     private void genpdf() {
@@ -66,6 +77,18 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
                 PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1200,2010,1).create();
                 PdfDocument.Page page = pdfDocument.startPage(pageInfo);
                 Canvas canvas = page.getCanvas();
+
+                pdfDocument.finishPage(page);
+
+                File file = new File(Environment.getExternalStorageDirectory(),"/Test.pdf");
+
+                try {
+                    pdfDocument.writeTo(new FileOutputStream(file));
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                pdfDocument.close();
             }
         });
     }
