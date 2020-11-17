@@ -62,22 +62,25 @@ public class CustomerQRcodeActivity extends AppCompatActivity {
 
         UserGenerateQR_code();
 
-        ActivityCompat.requestPermissions(CustomerQRcodeActivity.this,new String[]{
+        ActivityCompat.requestPermissions(this,new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
-            genpdf();
+
+        genpdf();
     }
 
     private void genpdf() {
         generatepdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // change this
                 PdfDocument pdfDocument = new PdfDocument();
                 Paint paint = new Paint();
 
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1200,2010,1).create();
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(250,400,1).create();
                 PdfDocument.Page page = pdfDocument.startPage(pageInfo);
                 Canvas canvas = page.getCanvas();
-
+                canvas.drawText("Testing PDF print",40,50,paint);
                 pdfDocument.finishPage(page);
 
                 File file = new File(Environment.getExternalStorageDirectory(),"/Test.pdf");
